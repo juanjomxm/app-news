@@ -42,7 +42,7 @@ function SearchNewsDev(){
     })
 
         // De esta manera puedo renderizar noticias de inmediato para que la pagina no este en lanco y despues que el usuario busque lo que desea
-        React.useEffect(()=>{
+        // React.useEffect(()=>{
             const viweNewsDevStart = async()=>{
                 try{
                     const {data, status} = await newsDevStart.get('v2/everything') 
@@ -53,12 +53,17 @@ function SearchNewsDev(){
                     console.warn(error)
                 }
             }
-            viweNewsDevStart()
-        }, [])
+        //     viweNewsDevStart()
+        // }, [])
 
 
     return(
         <div>
+            <button
+            onClick={viweNewsDevStart}
+            >
+                Mostrar json
+            </button>
             <input
             placeholder="Buscar noticia"
             value={searchNews}
@@ -79,7 +84,7 @@ function SearchNewsDev(){
                     width={200}
                     height={200}
                     />
-                    <a href={item.url}>Leer noticia</a>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">Leer noticia</a>
                 </div>
             ))}
         </div>

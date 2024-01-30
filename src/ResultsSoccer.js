@@ -3,12 +3,12 @@ import axios from "axios";
 import { GlobalContext } from "./GlobalContext";
 
 const apiSoccer = axios.create({
-    baseURL: "https://free-football-soccer-videos.p.rapidapi.com/",
-    headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        'X-RapidAPI-Key': 'ff9ffd5791msh6da170c435b05cap15c41djsnb9ef3b60b095',
-        'X-RapidAPI-Host': 'free-football-soccer-videos.p.rapidapi.com'
-    }
+    baseURL: 'https://www.scorebat.com/video-api/v3/feed/?token=MTM4Njc3XzE3MDY2MzQzNjZfNmU5M2NjNjkwNzNkMTc1ODhlMTgwNmE0MDk4MmFlMzZiNTllYWY4NQ==', //"https://free-football-soccer-videos.p.rapidapi.com/",
+    // headers: {
+    //     'Content-Type': 'application/json;charset=utf-8',
+    //     'X-RapidAPI-Key': 'ff9ffd5791msh6da170c435b05cap15c41djsnb9ef3b60b095',
+    //     'X-RapidAPI-Host': 'free-football-soccer-videos.p.rapidapi.com'
+    // }
 })
 
 function SoccerApi(){
@@ -25,7 +25,7 @@ function SoccerApi(){
                     const { data, status } = await apiSoccer.get();
         
                     if (status === 200,201) {
-                        setViewDataSoccer(data);
+                        setViewDataSoccer(data.response);
                     }
                 } catch (error) {
                     console.error(error);
@@ -35,30 +35,41 @@ function SoccerApi(){
     }, [])
 
     return(
-        <div className="container-data">
-            <input
-            placeholder="Buscar resultados"
-            value={inputSearchResult}
-            onChange={(event)=>{
-                setInputSearchResult(event.target.value)
-            }}
-            />
+        <div className="container-data-soccer">
+            <div className="container-search-results">
+                <input
+                className="input-search-soccer"
+                placeholder="Buscar resultados"
+                value={inputSearchResult}
+                onChange={(event)=>{
+                    setInputSearchResult(event.target.value)
+                }}
+                />
+            </div>
 
             {searchResult.map((item, index) =>( 
                 <div 
                 key={index}
                 className="container-return"
                 >
-                    <h2 className="container-name">{item.competition.name}</h2>
-                    <h3>{item.title}</h3>
+                    <h4 className="container-name">{item.competition}</h4>
+                    <h5>{item.title}</h5>
                     <div>
                         <img
                         src={item.thumbnail}
-                        width={300}
-                        height={300}
+                        width={200}
+                        height={200}
                         ></img>
                     </div>
-                    <a href={item.url}>Resumen</a>
+                    
+                    <a 
+                        href={item.matchviewUrl} 
+                        target="_blank" rel="noopener noreferrer"
+                        className="url-results-soccer"
+                        >
+                            <p>Resumen</p>
+                    </a>   
+ 
                 </div>
             ))} 
         </div>

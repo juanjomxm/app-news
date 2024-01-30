@@ -1,14 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { GlobalContext } from "./GlobalContext";
-import { SoccerApi } from "./ResultsSoccer";
 
 function CategoryNews(){
     const{
-
+        filterCategory, 
+        setFilterCategory
     } = React.useContext(GlobalContext)
     const [dataCategory, setDataCategory] = React.useState([])
-    const [filterCategory, setFilterCategory] = React.useState('')
 
     const categoryAxios = axios.create({
         baseURL: 'https://newsapi.org/',
@@ -20,7 +19,7 @@ function CategoryNews(){
         }
     })
 
-        React.useEffect(()=>{
+        // React.useEffect(()=>{
             const viewCategory = async()=>{
                 const {data, status} = await categoryAxios.get('v2/top-headlines/')
                 try{
@@ -31,12 +30,17 @@ function CategoryNews(){
                     console.warn(error)
                 }
             }
-            viewCategory()
-        }, [filterCategory])
+        //     viewCategory()
+        // }, [filterCategory])
 
 
     return(
         <div>
+            <button
+            onClick={viewCategory}
+            >
+                Mostrar json
+            </button>
 
             <div className="container-buttons-category">
                 <button onClick={()=>{
@@ -46,9 +50,7 @@ function CategoryNews(){
                     setFilterCategory('business')
                 }}>Negocios</button>
                 <button onClick={()=>{
-                    if(setFilterCategory('sports')){
-                        <SoccerApi/>
-                    }
+                    setFilterCategory('sports')
                 }}>Deportes</button>
                 <button onClick={()=>{
                     setFilterCategory('science')
@@ -65,7 +67,7 @@ function CategoryNews(){
                 <div key={index}>
                     <h3>{`${item.author}:`}</h3>
                     <p>{item.title}</p>
-                    <a href={item.url}>Leer noticia</a>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">Leer noticia</a>
                 </div>
             ))}
         </div>

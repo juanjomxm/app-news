@@ -5,18 +5,18 @@ import { SoccerApi } from "./ResultsSoccer";
 import { GlobalContext } from "./GlobalContext";
 
 function App() {
-  // const{
-    
-  // } = React.useContext(GlobalContext)
+  const{
+    filterCategory
+  } = React.useContext(GlobalContext)
 
   return (
     <React.Fragment>
-      <h1>Noticias nacionales e internacionales</h1>
+      <h1>Noticias del mundo</h1>
       <SearchNewsDev/>
 
-      <h2>Colombia</h2>
+      <h2>Noticias de Colombia</h2>
       <CategoryNews/>
-      {/* <SoccerApi/> */}
+      {(filterCategory === 'sports') && <SoccerApi/>}
     </React.Fragment>
   )
 }
