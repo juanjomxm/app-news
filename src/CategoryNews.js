@@ -15,11 +15,11 @@ function CategoryNews(){
             'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
             'category': filterCategory,
             'country': 'co',
-            'pageSize': 20
+            'pageSize': 10
         }
     })
 
-        // React.useEffect(()=>{
+        React.useEffect(()=>{
             const viewCategory = async()=>{
                 const {data, status} = await categoryAxios.get('v2/top-headlines/')
                 try{
@@ -30,17 +30,13 @@ function CategoryNews(){
                     console.warn(error)
                 }
             }
-        //     viewCategory()
-        // }, [filterCategory])
+            viewCategory()
+        }, [filterCategory])
 
 
     return(
-        <div>
-            <button
-            onClick={viewCategory}
-            >
-                Mostrar json
-            </button>
+        <div className="container-news-local">
+            <h1>Noticias de Colombia</h1>
 
             <div className="container-buttons-category">
                 <button onClick={()=>{
@@ -58,9 +54,6 @@ function CategoryNews(){
                 <button onClick={()=>{
                     setFilterCategory('health')
                 }}>Salud</button>
-                <button onClick={()=>{
-                    setFilterCategory('entertainment')
-                }}>Entretenimiento</button>
             </div>
 
             {dataCategory.map((item, index) =>(

@@ -1,8 +1,26 @@
+#root{
+  background: rgba(77, 99, 139, 0.8);
+}
+body{
+  align-items: center;
+  background-image: url('https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/GTYSdDW/videoblocks-world-news-background-business-concept-2_bieq0ayrm_thumbnail-1080_01.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 img{
   border-radius: 5px;
 }
-h3,h4,h5{
+h1{
+  display: flex;
+  justify-content: center;
+}
+h4,h5{
   color: white;
+}
+input{
+  text-align: center;
 }
 
 .container-data-soccer{
@@ -10,10 +28,10 @@ h3,h4,h5{
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
-  align-items: center;
   background-image: url('https://images.alphacoders.com/923/923986.jpg');
   margin-top: 20px;
   border-radius: 5px;
+  justify-content: space-between;
 }
 .container-search-results{
   display: flex;
@@ -32,4 +50,34 @@ h3,h4,h5{
 }
 .url-results-soccer{
   color: white;
+}
+
+/* Estilos para noticias locales */
+.container-buttons-category{
+  display: flex;
+  justify-content: center;
+}
+button{
+  margin: 5px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+/* Estilos para noticias mundiales */
+.container-news-world{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container-news-article-world{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.container-image-and-article-news-world{
+  display: flex;
+  align-items: center;
 }

@@ -6,17 +6,15 @@ import { GlobalContext } from "./GlobalContext";
 
 function App() {
   const{
-    filterCategory
+    searchResult
   } = React.useContext(GlobalContext)
 
   return (
     <React.Fragment>
-      <h1>Noticias del mundo</h1>
-      <SearchNewsDev/>
-
-      <h2>Noticias de Colombia</h2>
       <CategoryNews/>
-      {(filterCategory === 'sports') && <SoccerApi/>}
+
+      <SearchNewsDev/>
+      <SoccerApi/>
     </React.Fragment>
   )
 }

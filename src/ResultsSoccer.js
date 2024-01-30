@@ -19,59 +19,63 @@ function SoccerApi(){
         searchResult,
     } = React.useContext(GlobalContext)
 
-    React.useEffect(()=>{ 
-            const soccerView = async () => {
-                try {
-                    const { data, status } = await apiSoccer.get();
-        
-                    if (status === 200,201) {
-                        setViewDataSoccer(data.response);
-                    }
-                } catch (error) {
-                    console.error(error);
-                }
+    const soccerView = async () => {
+        try {
+            const { data, status } = await apiSoccer.get();
+
+            if (status === 200,201) {
+                setViewDataSoccer(data.response);
             }
-            soccerView()
-    }, [])
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return(
-        <div className="container-data-soccer">
+        <div className="container-news-soccer">
+            <h1>Resultados de futbol</h1>
             <div className="container-search-results">
                 <input
                 className="input-search-soccer"
-                placeholder="Buscar resultados"
+                placeholder="Buscar partido"
                 value={inputSearchResult}
                 onChange={(event)=>{
                     setInputSearchResult(event.target.value)
                 }}
                 />
+
+                <button
+                onClick={soccerView}
+                >Buscar</button>
             </div>
 
-            {searchResult.map((item, index) =>( 
-                <div 
-                key={index}
-                className="container-return"
-                >
-                    <h4 className="container-name">{item.competition}</h4>
-                    <h5>{item.title}</h5>
-                    <div>
-                        <img
-                        src={item.thumbnail}
-                        width={200}
-                        height={200}
-                        ></img>
+            <div className="container-data-soccer">
+                {searchResult.map((item, index) =>( 
+                    <div 
+                    key={index}
+                    className="container-return"
+                    >
+                        <h4 className="container-name">{item.competition}</h4>
+                        <h5>{item.title}</h5>
+                        <div>
+                            <img
+                            src={item.thumbnail}
+                            width={200}
+                            height={200}
+                            ></img>
+                        </div>
+                        
+                        <a 
+                            href={item.matchviewUrl} 
+                            target="_blank" rel="noopener noreferrer"
+                            className="url-results-soccer"
+                            >
+                                <p>Resumen</p>
+                        </a>   
+    
                     </div>
-                    
-                    <a 
-                        href={item.matchviewUrl} 
-                        target="_blank" rel="noopener noreferrer"
-                        className="url-results-soccer"
-                        >
-                            <p>Resumen</p>
-                    </a>   
- 
-                </div>
-            ))} 
+                ))} 
+            </div>
         </div>
     )
 }

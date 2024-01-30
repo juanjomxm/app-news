@@ -1,7 +1,11 @@
 import React from "react";
 import axios from "axios";
+import { GlobalContext } from "./GlobalContext";
 
 function SearchNewsDev(){
+    const {
+
+    } = React.useContext(GlobalContext)
     const [dataNews, setDataNews] = React.useState([])
     const [searchNews, setSearchNews] = React.useState('')
 
@@ -13,23 +17,23 @@ function SearchNewsDev(){
             'q': searchNews,
             'language': 'es',
             'sortBy': 'publishedAt',
-            'pageSize': 20
+            'pageSize': 10
         }
     })
 
-        // Funcion para que se renderice solo cuando busco una noticia
-        const viweNewsDev = async()=>{
-            try{
-                const {data, status} = await newsDev.get('v2/everything') 
-                if(status === 200, 201){
-                    setDataNews(data.articles)
-                }
-            }catch(error){
-                console.warn(error)
+    // Funcion para que se renderice solo cuando busco una noticia
+    const viweNewsDev = async()=>{
+        try{
+            const {data, status} = await newsDev.get('v2/everything') 
+            if(status === 200, 201){
+                setDataNews(data.articles)
             }
+        }catch(error){
+            console.warn(error)
         }
+    }
 
-        // Axios para renderizar noticias desde el inicio
+    // Axios para renderizar noticias desde el inicio
     const newsDevStart = axios.create({
         baseURL: 'https://newsapi.org/',
         params:{
@@ -41,29 +45,26 @@ function SearchNewsDev(){
         }
     })
 
-        // De esta manera puedo renderizar noticias de inmediato para que la pagina no este en lanco y despues que el usuario busque lo que desea
-        // React.useEffect(()=>{
-            const viweNewsDevStart = async()=>{
-                try{
-                    const {data, status} = await newsDevStart.get('v2/everything') 
-                    if(status === 200, 201){
-                        setDataNews(data.articles)
-                    }
-                }catch(error){
-                    console.warn(error)
+    // De esta manera puedo renderizar noticias de inmediato para que la pagina no este en lanco y despues que el usuario busque lo que desea
+    React.useEffect(()=>{
+        const viweNewsDevStart = async()=>{
+            try{
+                const {data, status} = await newsDevStart.get('v2/everything') 
+                if(status === 200, 201){
+                    setDataNews(data.articles)
                 }
+            }catch(error){
+                console.warn(error)
             }
-        //     viweNewsDevStart()
-        // }, [])
+        }
+        viweNewsDevStart()
+    }, [])
 
 
     return(
-        <div>
-            <button
-            onClick={viweNewsDevStart}
-            >
-                Mostrar json
-            </button>
+        <div className="container-news-world">
+            <h1>Noticias del mundo</h1>
+
             <input
             placeholder="Buscar noticia"
             value={searchNews}
@@ -73,17 +74,21 @@ function SearchNewsDev(){
             />
             <button
             onClick={viweNewsDev}
-            >La noticia</button>
+            >Buscar</button>
             
             {dataNews.map((item, index)=>(
-                <div key={index}>
+                <div 
+                className="container-news-article-world"
+                key={index}>
                     <h2>{item.title}</h2>
-                    <article>{item.description}</article>
-                    <img
-                    src={item.urlToImage}
-                    width={200}
-                    height={200}
-                    />
+                    <div className="container-image-and-article-news-world">
+                        <img
+                        src={item.urlToImage}
+                        width={200}
+                        height={200}
+                        />
+                        <article>{item.description}</article>
+                    </div>
                     <a href={item.url} target="_blank" rel="noopener noreferrer">Leer noticia</a>
                 </div>
             ))}
