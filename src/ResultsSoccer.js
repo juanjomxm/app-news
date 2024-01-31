@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { GlobalContext } from "./GlobalContext";
 
 const apiSoccer = axios.create({
     baseURL: 'https://www.scorebat.com/video-api/v3/feed/?token=MTM4Njc3XzE3MDY2MzQzNjZfNmU5M2NjNjkwNzNkMTc1ODhlMTgwNmE0MDk4MmFlMzZiNTllYWY4NQ==', //"https://free-football-soccer-videos.p.rapidapi.com/",
@@ -12,29 +11,32 @@ const apiSoccer = axios.create({
 })
 
 function SoccerApi(){
-    const {
-        inputSearchResult, 
-        setInputSearchResult,
-        setViewDataSoccer,
-        searchResult,
-    } = React.useContext(GlobalContext)
+    const [viewDataSoccer, setViewDataSoccer] = React.useState([])
+    const [inputSearchResult, setInputSearchResult] = React.useState('')
 
-    const soccerView = async () => {
-        try {
-            const { data, status } = await apiSoccer.get();
+    const searchResult = viewDataSoccer.filter(item =>{
+        return item.title.toLocaleLowerCase().includes(inputSearchResult.toLocaleLowerCase())
+    })
 
-            if (status === 200,201) {
-                setViewDataSoccer(data.response);
+    React.useEffect(()=>{
+        const soccerView = async () => {
+            try {
+                const { data, status } = await apiSoccer.get();
+    
+                if (status === 200,201) {
+                    setViewDataSoccer(data.response);
+                }
+            } catch (error) {
+                console.error(error);
             }
-        } catch (error) {
-            console.error(error);
         }
-    }
+        soccerView()
+    }, [])
 
     return(
         <div className="container-news-soccer">
-            <h1>Resultados de futbol</h1>
             <div className="container-search-results">
+                <h1>Resultados de futbol</h1>
                 <input
                 className="input-search-soccer"
                 placeholder="Buscar partido"
@@ -43,10 +45,6 @@ function SoccerApi(){
                     setInputSearchResult(event.target.value)
                 }}
                 />
-
-                <button
-                onClick={soccerView}
-                >Buscar</button>
             </div>
 
             <div className="container-data-soccer">

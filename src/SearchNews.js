@@ -1,11 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { GlobalContext } from "./GlobalContext";
 
 function SearchNewsDev(){
-    const {
-
-    } = React.useContext(GlobalContext)
     const [dataNews, setDataNews] = React.useState([])
     const [searchNews, setSearchNews] = React.useState('')
 
@@ -63,18 +59,19 @@ function SearchNewsDev(){
 
     return(
         <div className="container-news-world">
-            <h1>Noticias del mundo</h1>
-
-            <input
-            placeholder="Buscar noticia"
-            value={searchNews}
-            onChange={(event)=>{
-                setSearchNews(event.target.value)
-            }}
-            />
-            <button
-            onClick={viweNewsDev}
-            >Buscar</button>
+            <div className="contianer-title-news-world">
+                <h1>Noticias del mundo</h1>
+                <input
+                placeholder="Buscar noticia"
+                value={searchNews}
+                onChange={(event)=>{
+                    setSearchNews(event.target.value)
+                }}
+                />
+                <button
+                onClick={viweNewsDev}
+                >Buscar</button>
+            </div>
             
             {dataNews.map((item, index)=>(
                 <div 
@@ -89,7 +86,11 @@ function SearchNewsDev(){
                         />
                         <article>{item.description}</article>
                     </div>
-                    <a href={item.url} target="_blank" rel="noopener noreferrer">Leer noticia</a>
+                    <a 
+                    className="url-news-world"
+                    href={item.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer">Leer noticia</a>
                 </div>
             ))}
         </div>
