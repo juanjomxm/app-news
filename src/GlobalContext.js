@@ -10,20 +10,20 @@ function ContainerContext({children}){
 
     // Axios para noticias locales
     const categoryAxios = axios.create({
-        baseURL: 'https://newsapi.org/v2/top-headlines/',
-        headers:{
-            'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
-            'q': inputSearchNewsLocal,
-            'category': filterCategory,
-            'country': 'co',
-            'pageSize': 10
-        }
+        baseURL: `https://newsapi.org/v2/top-headlines/?apiKey=5a03cee5e2594c8ea66e80860c45fbba&q=${inputSearchNewsLocal}&category=${filterCategory}&country=co&pageSize=10`,
+        // params:{
+        //     'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
+        //     'q': inputSearchNewsLocal,
+        //     'category': filterCategory,
+        //     'country': 'co',
+        //     'pageSize': 10
+        // }
     })
 
     // Axios para buscar las noticias que deseo
     const newsDev = axios.create({
-        baseURL: 'https://newsapi.org/v2/everything',
-        headers:{
+        baseURL: 'https://newsapi.org/v2/everything/',
+        params:{
             'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
             'q': searchNews,
             'language': 'es',
@@ -34,8 +34,8 @@ function ContainerContext({children}){
 
     // Axios para renderizar noticias desde el inicio
     const newsDevStart = axios.create({
-        baseURL: 'https://newsapi.org/v2/everything',
-        headers:{
+        baseURL: 'https://newsapi.org/v2/everything/',
+        params:{
             'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
             'q': 'guerra',
             'language': 'es',
