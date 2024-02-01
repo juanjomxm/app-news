@@ -13,7 +13,7 @@ function CategoryNews(){
 
     React.useEffect(()=>{
         const viewCategory = async()=>{
-            const {data, status} = await categoryAxios.get('v2/top-headlines/')
+            const {data, status} = await categoryAxios.get()
             try{
                 if(status === 200, 201){
                     setDataCategory(data.articles)

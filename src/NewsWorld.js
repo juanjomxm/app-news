@@ -14,7 +14,7 @@ function SearchNewsDev(){
     // Funcion para que se renderice solo cuando busco una noticia
     const viweNewsDev = async()=>{
         try{
-            const {data, status} = await newsDev.get('v2/everything') 
+            const {data, status} = await newsDev.get() 
             if(status === 200, 201){
                 setDataNews(data.articles)
             }
@@ -27,7 +27,7 @@ function SearchNewsDev(){
     React.useEffect(()=>{
         const viweNewsDevStart = async()=>{
             try{
-                const {data, status} = await newsDevStart.get('v2/everything') 
+                const {data, status} = await newsDevStart.get() 
                 if(status === 200, 201){
                     setDataNews(data.articles)
                 }
