@@ -1,6 +1,6 @@
 import React from "react";
-import { SearchNewsDev } from "./SearchNews";
-import { CategoryNews } from "./CategoryNews";
+import { SearchNewsDev} from "./NewsWorld"
+import { CategoryNews } from "./NewsLocal";
 import { SoccerApi } from "./ResultsSoccer";
 
 function App() {
