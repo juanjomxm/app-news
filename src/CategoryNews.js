@@ -1,21 +1,15 @@
 import React from "react";
-import axios from "axios";
+import { GlobalContext } from "./GlobalContext";
 
 function CategoryNews(){
+    const{
+        filterCategory,
+        setFilterCategory,
+        inputSearchNewsLocal,
+        setInputSearchNewsLocal,
+        categoryAxios
+    } = React.useContext(GlobalContext)
     const [dataCategory, setDataCategory] = React.useState([])
-    const [filterCategory, setFilterCategory] = React.useState('')
-    const [inputSearchNewsLocal, setInputSearchNewsLocal] = React.useState('')
-
-    const categoryAxios = axios.create({
-        baseURL: 'https://newsapi.org/',
-        params:{
-            'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
-            'q': inputSearchNewsLocal,
-            'category': filterCategory,
-            'country': 'co',
-            'pageSize': 10
-        }
-    })
 
     React.useEffect(()=>{
         const viewCategory = async()=>{

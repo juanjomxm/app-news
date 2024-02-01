@@ -1,21 +1,15 @@
 import React from "react";
-import axios from "axios";
+import { GlobalContext } from "./GlobalContext";
 
 function SearchNewsDev(){
-    const [dataNews, setDataNews] = React.useState([])
-    const [searchNews, setSearchNews] = React.useState('')
+    const{
+        searchNews,
+        setSearchNews,
+        newsDevStart,
+        newsDev
+    } = React.useContext(GlobalContext)
 
-    // Axios para buscar las noticias que deseo
-    const newsDev = axios.create({
-        baseURL: 'https://newsapi.org/',
-        params:{
-            'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
-            'q': searchNews,
-            'language': 'es',
-            'sortBy': 'publishedAt',
-            'pageSize': 10
-        }
-    })
+    const [dataNews, setDataNews] = React.useState([])
 
     // Funcion para que se renderice solo cuando busco una noticia
     const viweNewsDev = async()=>{
@@ -28,18 +22,6 @@ function SearchNewsDev(){
             console.warn(error)
         }
     }
-
-    // Axios para renderizar noticias desde el inicio
-    const newsDevStart = axios.create({
-        baseURL: 'https://newsapi.org/',
-        params:{
-            'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
-            'q': 'guerra',
-            'language': 'es',
-            'sortBy': 'publishedAt',
-            'pageSize': 10   
-        }
-    })
 
     // De esta manera puedo renderizar noticias de inmediato para que la pagina no este en lanco y despues que el usuario busque lo que desea
     React.useEffect(()=>{
