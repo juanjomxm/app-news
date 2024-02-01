@@ -7,28 +7,23 @@ function CategoryNews(){
     const [inputSearchNewsLocal, setInputSearchNewsLocal] = React.useState('')
 
     // Axios para noticias locales
-    // const categoryAxios = axios.create({
-    //     baseURL: `https://newsapi.org/v2/top-headlines/`,
-        // params:{
-        //     'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
-        //     'q': inputSearchNewsLocal,
-        //     'category': filterCategory,
-        //     'country': 'co',
-        //     'pageSize': 10
-        // }
-    // })
+    const categoryAxios = axios.create({
+        baseURL: `https://newsapi.org/v2/top-headlines/`,
+        params:{
+            'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
+            'q': inputSearchNewsLocal,
+            'category': filterCategory,
+            'country': 'co',
+            'pageSize': 10
+        }
+    })
 
     React.useEffect(()=>{
         const viewCategory = async()=>{
-            const URL = `https://newsapi.org/v2/top-headlines/?apiKey=5a03cee5e2594c8ea66e80860c45fbba&q=${inputSearchNewsLocal}&category=${filterCategory}&country=co&pageSize=10`
-            const res = await fetch(URL, {
-                method: 'GET'
-            })
-
-            const data = await res.json()
+            const {data,status} = await categoryAxios.get()
 
             try{
-                if(res.status === 200, 201){
+                if(status === 200, 201){
                     setDataCategory(data.articles)
                 }
             }catch(error){
