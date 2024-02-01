@@ -9,6 +9,9 @@ function CategoryNews(){
     // Axios para noticias locales
     const categoryAxios = axios.create({
         baseURL: `https://newsapi.org/v2/top-headlines/`,
+        headers:{
+            'Content-Type': 'application/json;charset=utf-8',
+        },
         params:{
             'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
             'q': inputSearchNewsLocal,

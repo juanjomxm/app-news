@@ -22,7 +22,11 @@ function SearchNewsDev(){
     // Axios para renderizar noticias desde el inicio
     const newsDevStart = axios.create({
         baseURL: 'https://newsapi.org/v2/everything/',
+        headers:{
+            'Content-Type': 'application/json;charset=utf-8',
+        },
         params:{
+            'Content-Type': 'application/json;charset=utf-8',
             'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
             'q': 'guerra',
             'language': 'es',
