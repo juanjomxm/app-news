@@ -3,59 +3,28 @@ import axios from "axios";
 
 function SearchNewsDev(){
     const [dataNews, setDataNews] = React.useState([])
-    const [searchNews, setSearchNews] = React.useState('')
-
-    // Axios para buscar las noticias que deseo
-    const newsDev = axios.create({
-        baseURL: 'https://newsapi.org/v2/everything/',
-        params:{
-            'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
-            'q': searchNews,
-            'language': 'es',
-            'sortBy': 'publishedAt',
-            'pageSize': 10
-        }
-    })
-
-
 
     // Axios para renderizar noticias desde el inicio
     const newsDevStart = axios.create({
-        baseURL: 'https://newsapi.org/v2/everything/',
-        headers:{
-            'Content-Type': 'application/json;charset=utf-8',
-        },
+        baseURL: 'https://api.currentsapi.services/v1/latest-news/',
         params:{
-            'Content-Type': 'application/json;charset=utf-8',
-            'apiKey': '5a03cee5e2594c8ea66e80860c45fbba',
-            'q': 'guerra',
+            'apiKey': 'LznzhCZ5RDq1dOY0DMG5PjIkvnVQoEA-QmmSzECMmga95O3x',
             'language': 'es',
-            'sortBy': 'publishedAt',
-            'pageSize': 10   
+            'page_size': 15
+        },
+        headers:{
+            'Content-Type':' application/json'
         }
     })
 
-    // Funcion para que se renderice solo cuando busco una noticia
-    const viweNewsDev = async()=>{
-        const {data, status} = await newsDev.get()
-
-        try{
-            if(status === 200, 201){
-                setDataNews(data.articles)
-            }
-        }catch(error){
-            console.warn(error)
-        }
-    }
-
-    // De esta manera puedo renderizar noticias de inmediato para que la pagina no este en lanco y despues que el usuario busque lo que desea
+    // De esta manera puedo renderizar noticias de inmediato para que la pagina no este en blanco y despues que el usuario busque lo que desea
     React.useEffect(()=>{
         const viweNewsDevStart = async()=>{
             const {data,status} = await newsDevStart.get()
 
             try{
                 if(status === 200, 201){
-                    setDataNews(data.articles)
+                    setDataNews(data.news)
                 }
             }catch(error){
                 console.warn(error)
@@ -64,43 +33,27 @@ function SearchNewsDev(){
         viweNewsDevStart()
     }, [])
 
-
     return(
         <div className="container-news-world">
+
             <div className="contianer-title-news-world">
                 <h1>Noticias del mundo</h1>
-                <input
-                placeholder="Buscar noticia"
-                value={searchNews}
-                onChange={(event)=>{
-                    setSearchNews(event.target.value)
-                }}
-                />
-                <button
-                onClick={viweNewsDev}
-                >Buscar</button>
             </div>
             
-            {dataNews.map((item, index)=>(
-                <div 
-                className="container-news-article-world"
-                key={index}>
-                    <h2>{item.title}</h2>
-                    <div className="container-image-and-article-news-world">
+            <div className="container-data-news-world">
+                {dataNews.map((item, index)=>(
+                    <div className="container-news-article-world" key={index}>
+                        <h3>{item.title}</h3>
                         <img
-                        src={item.urlToImage}
+                        src={item.image}
                         width={200}
                         height={200}
                         />
                         <article>{item.description}</article>
+                        <a href={item.url} target="_blank">Leer noticia</a>
                     </div>
-                    <a 
-                    className="url-news-world"
-                    href={item.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer">Leer noticia</a>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     )
 }
